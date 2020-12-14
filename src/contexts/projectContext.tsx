@@ -2,11 +2,29 @@ import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import {projectState} from "../types";
 
 const initialState : projectState = {
-    projects: [{name: 'Project 1',
+    projects: [
+        {
+        id: '1',
+        name: 'Project Management App',
         description: 'this is a mern stack project',
         tech: ['react', 'node'],
-        team :['1' , '2']
-    }],
+        team :[{id: '1', username: 'khizar@gmail.com', password: 'khizar'},
+            {id: '2', username: 'arslan@gmail.com', password: 'arslan'},],
+        createdAt: new Date( Date.now()),
+        createdBy: 'jabir'
+        },
+        {
+        id: '2',
+        name: 'Project Management App',
+        description: 'this is a mern stack project',
+        tech: ['react', 'node'],
+        team :[{id: '1', username: 'khizar@gmail.com', password: 'khizar'},
+            {id: '2', username: 'arslan@gmail.com', password: 'arslan'},],
+        createdAt: new Date( Date.now()),
+        createdBy: 'jabir'
+        },
+
+    ],
 };
 
 const ProjectContext = createContext<{
@@ -40,6 +58,6 @@ const ProjectProvider: React.FC<Props> = ({ children }) => {
     );
 };
 
-export const useAuthContext = () => useContext(ProjectContext);
+export const useProjectContext = () => useContext(ProjectContext);
 export { ProjectProvider };
 

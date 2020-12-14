@@ -20,7 +20,10 @@ export type projectObject = {
     name: string,
     description: string,
     tech: string[],
-    team: string[]
+    team: user[],
+    createdAt: Date,
+    createdBy: string,
+    id: string
 }
 
 export type authAction = { type: 'setUsername', payload: string }

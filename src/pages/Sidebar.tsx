@@ -8,7 +8,7 @@ import Login from "./auth/Login";
 import {getAuthenticatedUser} from "../utils";
 import {useAuthContext} from "../contexts/authContext";
 import PrivateRoute from "./auth/PrivateRoute";
-import Projects from "./projects/Projects";
+import ProjectsHome from "./projects/ProjectsHome";
 const { SubMenu } = Menu;
 const {  Content, Sider } = Layout;
 const Sidebar = () => {
@@ -67,7 +67,7 @@ const Sidebar = () => {
                 >
                     <Switch>
                         <Route component={Login} path={'/login'}/>
-                        <PrivateRoute exact path="/" component={Projects} />
+                        <PrivateRoute component = {ProjectsHome} path ='/' />
                     </Switch>
                 </Content>
             </Layout>
