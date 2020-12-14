@@ -26,17 +26,7 @@ const Login = () => {
 
 
     const handleLogin = useCallback(() => {
-        if (state.username === 'abc@email.com' && state.password === 'password') {
-            dispatch({
-                type: 'loginSuccess',
-                payload: 'Login Successfully'
-            });
-        } else {
-            dispatch({
-                type: 'loginFailed',
-                payload: 'Incorrect username or password'
-            });
-        }
+        dispatch({type: 'Login' , payload: {username: state.username, password: state.password}})
     }, [state.username, state.password]);
 
 
@@ -59,7 +49,8 @@ const Login = () => {
     return (
 
         <LoginWrapper>
-            {getAuthenticatedUser().name && <Redirect to="/" /> }
+            {getAuthenticatedUser().username && <Redirect to="/" /> }
+            {state.helperText && <div>{state.helperText}</div>}
             <Form
                 name="normal_login"
                 className="login-form"

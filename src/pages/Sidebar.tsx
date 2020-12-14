@@ -30,9 +30,9 @@ const Sidebar = () => {
                 >
                     <SubMenu key="sub1" icon={<UserOutlined />} title="User">
 
-                        {getAuthenticatedUser().name?
+                        {getAuthenticatedUser().username?
                             <Menu.Item key="1">
-                                {getAuthenticatedUser().name}
+                                {getAuthenticatedUser().username}
                             </Menu.Item> :
                             <Menu.Item key="2">
                                 <Link to={'/login'}> Login </Link>

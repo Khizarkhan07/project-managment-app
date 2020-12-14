@@ -1,13 +1,18 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import { authState, authAction} from "../types";
-import {authenticateUser, removeUser} from "../utils";
+import {authenticateUser, removeUser, login} from "../utils";
 
 const initialState:authState = {
     username: '',
     password: '',
     isButtonDisabled: true,
     helperText: '',
-    isError: false
+    isError: false,
+    users : [
+        {id: '1', username: 'khizar@gmail.com', password: 'khizar'},
+        {id: '2', username: 'arslan@gmail.com', password: 'arslan'},
+        {id: '3', username: 'jabir@gmail.com', password: 'jabir'}
+    ]
 };
 
 const AuthContext = createContext<{
@@ -44,6 +49,26 @@ const reducer = (state: authState, action: authAction): authState => {
             };
             authenticateUser({name: state.username})
             return newState;
+
+        case 'Login':
+            const user = login(state.users, action.payload)
+
+            if(user) {
+                authenticateUser(user)
+                return {
+                    ...state,
+                    helperText: 'logged in!',
+                    isError: false
+                };
+            }
+            else {
+                return {
+                    ...state,
+                    helperText: 'Incorrect username or password',
+                    isError: true
+                }
+            }
+
         case 'loginFailed':
             return {
                 ...state,
