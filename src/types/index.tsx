@@ -23,7 +23,7 @@ export type projectObject = {
     team: user[],
     createdAt: Date,
     createdBy: string,
-    id: string
+    id: number
 }
 
 export type authAction = { type: 'setUsername', payload: string }

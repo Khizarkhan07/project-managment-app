@@ -16,7 +16,7 @@ const ProjectsHome = () =>{
                         title={project.name}
                         extra={[
                             <Button key="1" type="primary">
-                                Primary
+                                Reviews
                             </Button>,
                         ]}
                     >
@@ -28,13 +28,13 @@ const ProjectsHome = () =>{
                             <Descriptions.Item label="Creation Time">{new Date(project.createdAt).toLocaleDateString()}</Descriptions.Item>
                             <Descriptions.Item label="Effective Time">{new Date(project.createdAt).toLocaleDateString()}</Descriptions.Item>
                             <Descriptions.Item label="Tech stack">{
-                                project.tech.map((tech)=> {
+                                project.tech.map((tech: any)=> {
                                     return tech + " "
                                 })
                             }</Descriptions.Item>
 
                             <Descriptions.Item label="Team">
-                                {project.team.map((member)=> {
+                                {project.team.map((member: any)=> {
                                     return (
                                         <Avatar>{member.username.substr(0,1).toUpperCase()}</Avatar>
                                     )

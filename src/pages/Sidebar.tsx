@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { UserOutlined, LaptopOutlined } from '@ant-design/icons';
 import '../App.css'
 import {Route, Switch, withRouter} from "react-router";
 import Login from "./auth/Login";
@@ -9,6 +9,7 @@ import {getAuthenticatedUser} from "../utils";
 import {useAuthContext} from "../contexts/authContext";
 import PrivateRoute from "./auth/PrivateRoute";
 import ProjectsHome from "./projects/ProjectsHome";
+import CreateProject from "./projects/CreateProject";
 const { SubMenu } = Menu;
 const {  Content, Sider } = Layout;
 const Sidebar = () => {
@@ -41,18 +42,12 @@ const Sidebar = () => {
                             Logout
                         </Menu.Item>
                     </SubMenu>
-                    <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                        <Menu.Item key="5">option5</Menu.Item>
-                        <Menu.Item key="6">option6</Menu.Item>
-                        <Menu.Item key="7">option7</Menu.Item>
-                        <Menu.Item key="8">option8</Menu.Item>
+                    <SubMenu key="sub2" icon={<LaptopOutlined />} title="Projects">
+                        {getAuthenticatedUser().role === 'Manager' && <Menu.Item key="4"><Link to={'/create'}> Create Project </Link></Menu.Item>}
+                        <Menu.Item key="5"><Link to={'/'}> Current Projects </Link></Menu.Item>
+                        <Menu.Item key="6">My Projects</Menu.Item>
                     </SubMenu>
-                    <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                        <Menu.Item key="9">option9</Menu.Item>
-                        <Menu.Item key="10">option10</Menu.Item>
-                        <Menu.Item key="11">option11</Menu.Item>
-                        <Menu.Item key="12">option12</Menu.Item>
-                    </SubMenu>
+
                 </Menu>
             </Sider>
 
@@ -67,6 +62,7 @@ const Sidebar = () => {
                 >
                     <Switch>
                         <Route component={Login} path={'/login'}/>
+                        <PrivateRoute component = {CreateProject} path ='/create' />
                         <PrivateRoute component = {ProjectsHome} path ='/' />
                     </Switch>
                 </Content>
