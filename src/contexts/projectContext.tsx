@@ -1,7 +1,8 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import {projectState, user} from "../types";
-import {getAuthenticatedUser, userSelector} from '../utils/index'
+import {getAuthenticatedUser, projectSelector, userSelector} from '../utils/index'
 const CREATE_PROJECT = 'CREATE_PROJECT'
+const USER_PROJECTS = 'USER_PROJECTS'
 const initialState : projectState = {
     projects: [
         {
@@ -40,7 +41,7 @@ const ProjectContext = createContext<{
     dispatch: () => null,
 });
 
-const reducer = (state: projectState, action: any): projectState  => {
+const reducer = (state: projectState, action: any)  => {
     switch (action.type) {
         case CREATE_PROJECT: {
             const team1= userSelector(action.payload.users ,action.payload.team1) as user
@@ -62,6 +63,15 @@ const reducer = (state: projectState, action: any): projectState  => {
                         createdBy: getAuthenticatedUser().username,
                         responsibility: [team1_res, team2_res]
                     }]
+            }
+        }
+        case USER_PROJECTS : {
+            const projects = projectSelector(state.projects, action.payload)
+
+            return {
+                ...state,
+                userProjects: projects
+
             }
         }
         default: return state
