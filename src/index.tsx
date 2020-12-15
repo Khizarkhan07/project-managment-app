@@ -5,12 +5,15 @@ import { BrowserRouter } from 'react-router-dom';
 import Sidebar from "./pages/Sidebar";
 import 'antd/dist/antd.css'
 import {AuthProvider} from "./contexts/authContext";
+import {ProjectProvider} from "./contexts/projectContext";
 
 
 ReactDOM.render(
     <BrowserRouter>
         <AuthProvider>
-            <Sidebar />
+            <ProjectProvider>
+                <Sidebar />
+            </ProjectProvider>
         </AuthProvider>
     </BrowserRouter>,
     document.getElementById('root')
