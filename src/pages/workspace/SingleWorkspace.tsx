@@ -1,10 +1,10 @@
 import {Avatar, Button, Descriptions, Divider, PageHeader} from 'antd';
-import React, {useEffect, useMemo} from 'react';
+import React, { useMemo} from 'react';
 import {RouteComponentProps} from "react-router";
 import {useWorkspaceContext} from "../../contexts/worskspaceContext";
 import {workspaceSelector} from "../../utils";
 import {useProjectContext} from "../../contexts/projectContext";
-import {projectObject, workspaceObj} from "../../types";
+import { workspaceObj} from "../../types";
 import {ProjectWrapper} from "../projects/project.styles";
 
 type TParams = { id: string };

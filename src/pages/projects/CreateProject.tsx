@@ -4,19 +4,25 @@ import {useAuthContext} from "../../contexts/authContext";
 import {getAuthenticatedUser} from "../../utils";
 import { Redirect } from 'react-router-dom';
 import {useProjectContext} from "../../contexts/projectContext";
+import {useWorkspaceContext} from "../../contexts/worskspaceContext";
 const { Option } = Select;
 const { TextArea } = Input;
 const CreateProject = () => {
-    const {state, dispatch} = useAuthContext();
+    const {state} = useAuthContext();
     const {state: projectState, dispatch: projectDispatch} = useProjectContext();
+    const {state: workspaceState, dispatch: workspaceDispatch} = useWorkspaceContext();
     const [stateValue, setStateValue] = useState({name: '', description: '', tech: '', team1_res: '', team2_res: ''})
     const [team1, setSTeam1] = useState('')
     const [team2, setSTeam2] = useState('')
+    const [workspace, setWorkspace] = useState('')
 
 
     const handleSubmit = useCallback(()=> {
         projectDispatch({type: 'CREATE_PROJECT', payload: {name: stateValue.name, description: stateValue.description, tech: stateValue.tech, team1, team2 , users: state.users}})
-    }, [stateValue, team1, team2])
+        workspaceDispatch({type: 'ADD_PROJECT', payload:{id: workspace, projectId: projectState.projects.length+1}})
+        window.location.href= '/'
+
+    }, [stateValue, team1, team2, workspace])
 
     const handleChange = useCallback( (e:any) => {
         const value = e.target.value;
@@ -34,12 +40,25 @@ const CreateProject = () => {
         setSTeam2(value)
     },[team2])
 
+    const handleWorkSpaceChange = useCallback((value: string) => {
+        setWorkspace(value)
+    },[workspace])
+
     const team = useMemo(()=> (
             state.users?.map((user)=> {
               return (
                   <Option value={user.id}>{user.username}</Option>
               )
             })
+
+    ), [state.users])
+
+    const workspaces = useMemo(()=> (
+        workspaceState.workspaces?.map((workspace)=> {
+            return (
+                <Option value={workspace.id}>{workspace.name}</Option>
+            )
+        })
 
     ), [state.users])
 
@@ -108,6 +127,13 @@ const CreateProject = () => {
                                 value={stateValue.team2_res}
                                 autoSize={{ minRows: 5 }}
                             />
+                        </div>
+
+                        <div className="form-group col-md-12">
+                            <label className={"mr-2"} htmlFor="Workspace">Workspace</label>
+                            <Select  style={{ width: 200 }} onChange={handleWorkSpaceChange}>
+                                {workspaces}
+                            </Select>
                         </div>
 
                         <div className={"form-group col-md-12"}>
