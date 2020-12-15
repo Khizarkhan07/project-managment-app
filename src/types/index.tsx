@@ -23,7 +23,13 @@ export type projectObject = {
     team: user[],
     createdAt: Date,
     createdBy: string,
-    id: number
+    id: number,
+    responsibility?: responsibilityObj[]
+}
+
+export  type responsibilityObj = {
+    id: string;
+    data: string;
 }
 
 export type authAction = { type: 'setUsername', payload: string }

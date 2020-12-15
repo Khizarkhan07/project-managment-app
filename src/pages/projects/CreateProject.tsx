@@ -9,7 +9,7 @@ const { TextArea } = Input;
 const CreateProject = () => {
     const {state, dispatch} = useAuthContext();
     const {state: projectState, dispatch: projectDispatch} = useProjectContext();
-    const [stateValue, setStateValue] = useState({name: '', description: '', tech: ''})
+    const [stateValue, setStateValue] = useState({name: '', description: '', tech: '', team1_res: '', team2_res: ''})
     const [team1, setSTeam1] = useState('')
     const [team2, setSTeam2] = useState('')
 
@@ -82,12 +82,33 @@ const CreateProject = () => {
                         </div>
 
                         <div className="form-group col-md-12">
+                            <label htmlFor="body">Team 1 Responsibilities</label>
+                            <TextArea
+                                name="team1_res"
+                                onChange={handleChange}
+                                placeholder="Team 1 Responsibilities"
+                                value={stateValue.team1_res}
+                                autoSize={{ minRows: 5 }}
+                            />
+                        </div>
+
+                        <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team2">Team 2</label>
                             <Select  style={{ width: 200 }} onChange={handleTeam2Change}>
                                 {team}
                             </Select>
                         </div>
 
+                        <div className="form-group col-md-12">
+                            <label htmlFor="body">Team 2 Responsibilities</label>
+                            <TextArea
+                                name="team2_res"
+                                onChange={handleChange}
+                                placeholder="Team 2 Responsibilities"
+                                value={stateValue.team2_res}
+                                autoSize={{ minRows: 5 }}
+                            />
+                        </div>
 
                         <div className={"form-group col-md-12"}>
                             <Button
