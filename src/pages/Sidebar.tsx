@@ -14,6 +14,7 @@ import UserProjects from "./projects/UserProjects";
 import {useWorkspaceContext} from "../contexts/worskspaceContext";
 import SingleWorkspace from "./workspace/SingleWorkspace";
 import ProjectReviews from "./reviews/projectReviews";
+import CreateModal from "../components/createModal";
 const { SubMenu } = Menu;
 const {  Content, Sider } = Layout;
 const Sidebar = () => {
@@ -36,9 +37,9 @@ const Sidebar = () => {
     }, [visible]);
 
 
-    const handleName = useCallback((e)=> {
+    const handleName = useCallback((e: React.ChangeEvent<HTMLInputElement>)=> {
         setName(e.target.value)
-    }, [])
+    }, [name])
 
 
     const handleLogout = useCallback(()=> {
@@ -55,28 +56,9 @@ const Sidebar = () => {
     },[workspaceState.workspaces])
 
 
-
-    const creatModal = useMemo(()=> {
-        return (
-            <Modal
-                title="Create Workspace"
-                visible={visible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-            >
-
-                <div className="form-group col-md-12">
-                    <label htmlFor="first_name"> Workspace Name </label>
-                    <input type="text" id="name" onChange={handleName} name="name" className="form-control" placeholder="Enter workspace name" />
-                </div>
-
-            </Modal>
-        )
-    }, [name, visible])
-
     return (
         <Layout>
-            {creatModal}
+            <CreateModal onChange={handleName} onSubmit={handleOk} visible={visible} title={"Create Workspace"} onCancel={handleCancel}/>
             <Sider width={300} className="site-layout-background menu-style">
                 <Menu
                     theme={"dark"}
