@@ -7,7 +7,6 @@ export type authState = {
     users: user[]
 };
 
-
 export type user ={
     [key: string]: string
 }
@@ -41,6 +40,19 @@ export type workspaceObj = {
 export  type responsibilityObj = {
     id: string;
     data: string;
+}
+
+export type reviewState = {
+    reviews: reviewObj[]
+}
+
+export type reviewObj = {
+    id : number,
+    reviewBy: user,
+    reviewTo: user,
+    project: projectObject,
+    createdAt : Date
+    comment: string
 }
 
 export type authAction = { type: 'setUsername', payload: string }

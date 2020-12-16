@@ -13,6 +13,7 @@ import CreateProject from "./projects/CreateProject";
 import UserProjects from "./projects/UserProjects";
 import {useWorkspaceContext} from "../contexts/worskspaceContext";
 import SingleWorkspace from "./workspace/SingleWorkspace";
+import ProjectReviews from "./reviews/projectReviews";
 const { SubMenu } = Menu;
 const {  Content, Sider } = Layout;
 const Sidebar = () => {
@@ -124,6 +125,7 @@ const Sidebar = () => {
                         <PrivateRoute component = {CreateProject} path ='/create' />
                         <PrivateRoute component = {UserProjects} path ='/myProjects' />
                         <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
+                        <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
                         <PrivateRoute component = {ProjectsHome} path ='/' />
                     </Switch>
                 </Content>

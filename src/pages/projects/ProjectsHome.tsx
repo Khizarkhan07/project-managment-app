@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {useProjectContext} from "../../contexts/projectContext";
 import { Divider, PageHeader, Button, Descriptions,  Avatar, Image } from 'antd';
 import {ProjectWrapper} from "./project.styles";
+import { Link } from 'react-router-dom';
 
 const ProjectsHome = () =>{
     const{state, dispatch} = useProjectContext();
@@ -14,11 +15,7 @@ const ProjectsHome = () =>{
                         key={project.id}
                         ghost={false}
                         title={project.name}
-                        extra={[
-                            <Button key="1" type="primary">
-                                Reviews
-                            </Button>,
-                        ]}
+
                     >
                         <Descriptions size="small" column={3}>
                             <Descriptions.Item label="Created By">{project.createdBy}</Descriptions.Item>

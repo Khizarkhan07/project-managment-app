@@ -7,6 +7,7 @@ import 'antd/dist/antd.css'
 import {AuthProvider} from "./contexts/authContext";
 import {ProjectProvider} from "./contexts/projectContext";
 import {WorkspaceProvider} from "./contexts/worskspaceContext";
+import { ReviewProvider } from './contexts/reviewContext';
 
 
 ReactDOM.render(
@@ -14,7 +15,9 @@ ReactDOM.render(
         <AuthProvider>
             <WorkspaceProvider>
                 <ProjectProvider>
-                    <Sidebar />
+                    <ReviewProvider>
+                        <Sidebar />
+                    </ReviewProvider>
                 </ProjectProvider>
             </WorkspaceProvider>
         </AuthProvider>

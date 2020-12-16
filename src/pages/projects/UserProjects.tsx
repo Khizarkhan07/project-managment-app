@@ -3,6 +3,7 @@ import {useProjectContext} from "../../contexts/projectContext";
 import {getAuthenticatedUser} from "../../utils";
 import {ProjectWrapper} from "./project.styles";
 import {Avatar, Button, Descriptions, PageHeader} from "antd";
+import {Link} from "react-router-dom";
 
 const UserProjects = () => {
     const {state, dispatch} = useProjectContext();
@@ -22,7 +23,7 @@ const UserProjects = () => {
                             title={project.name}
                             extra={[
                                 <Button key="1" type="primary">
-                                    Reviews
+                                    <Link to = {`/project/reviews/${project.id}`}>Reviews</Link>
                                 </Button>,
                             ]}
                         >

@@ -35,6 +35,12 @@ export const workspaceSelector = (workspaces: workspaceObj[], id: number) => {
     const workspace = workspaces.find(workspace => workspace.id == id);
     return workspace;
 }
+
+export const singleProjectSelector = (project: projectObject[], id: number) => {
+    const singleProject = project.find(project => project.id == id);
+    return singleProject;
+}
+
 export const projectSelector = (project: projectObject[], id: string) => {
     const projects = project.filter(project=> project.team.find(team => team.id == id))
     return projects;
