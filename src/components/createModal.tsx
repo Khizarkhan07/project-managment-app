@@ -9,9 +9,12 @@ type Props = {
     name? :string,
     title?: string,
     visible? : boolean
+    label? : string,
+    placeholder?: string,
 
 }
-const CreateModal: React.FC<Props> = ({title, name, value,onCancel, onChange, onSubmit, visible}) => {
+const CreateModal: React.FC<Props> = ({title, name, value,onCancel, onChange, onSubmit, visible, label,placeholder}) => {
+    console.log(title)
     return (
         <Modal
             title={title}
@@ -21,8 +24,8 @@ const CreateModal: React.FC<Props> = ({title, name, value,onCancel, onChange, on
         >
 
             <div className="form-group col-md-12">
-                <label htmlFor="first_name"> Workspace Name </label>
-                <input type="text" id="name" onChange={onChange} name="name" className="form-control" placeholder="Enter workspace name" />
+                <label htmlFor="first_name"> {label} </label>
+                <input type="text" id="name" onChange={onChange} name="name" className="form-control" placeholder={placeholder} />
             </div>
 
         </Modal>

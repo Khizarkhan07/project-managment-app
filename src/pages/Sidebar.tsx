@@ -21,11 +21,26 @@ const Sidebar = () => {
     const {state, dispatch} = useAuthContext();
     const {state: workspaceState, dispatch:workspaceDispatch } = useWorkspaceContext();
     const [visible, setVisible] = React.useState(false);
+    const [teamVisible, setTeamVisible] = React.useState(false);
     const [name, setName] = React.useState('');
 
     const showModal = useCallback(() => {
         setVisible(true);
     }, [visible]);
+
+    const showTeamModal = useCallback(() => {
+        setTeamVisible(true);
+    }, [teamVisible]);
+
+    const handleTeamCancel = useCallback( () => {
+        setTeamVisible(false);
+    }, [teamVisible]);
+
+
+    const handleTeamOK = useCallback(()=> {
+        dispatch({type: 'AddTeamMember', payload: name})
+        setTeamVisible(false)
+    }, [name])
 
     const handleOk = useCallback(()=> {
         workspaceDispatch({type: 'CREATE_WORKSPACE', payload: {name:name}})
@@ -58,7 +73,8 @@ const Sidebar = () => {
 
     return (
         <Layout>
-            <CreateModal onChange={handleName} onSubmit={handleOk} visible={visible} title={"Create Workspace"} onCancel={handleCancel}/>
+            <CreateModal label={"Member Name"} placeholder={"Team Member name"}   onChange={handleName} onSubmit={handleTeamOK} visible={teamVisible} title={"Add Team Member"} onCancel={handleTeamCancel}/>
+            <CreateModal label={"Workspace Name"} placeholder={"Enter Workspace name"} onChange={handleName} onSubmit={handleOk} visible={visible} title={"Create Workspace"} onCancel={handleCancel}/>
             <Sider width={300} className="site-layout-background menu-style">
                 <Menu
                     theme={"dark"}
@@ -88,6 +104,11 @@ const Sidebar = () => {
                         {getAuthenticatedUser().role === 'Manager' && <Menu.Item key="4"><Link to={'/create'}> Create Project </Link></Menu.Item>}
                         <Menu.Item key="5"><Link to={'/'}> Current Projects </Link></Menu.Item>
                         <Menu.Item key="6"><Link to={'/myProjects'}> My projects </Link></Menu.Item>
+                    </SubMenu>
+
+
+                    <SubMenu key="sub4" icon={<LaptopOutlined />} title="Team">
+                        {getAuthenticatedUser().role === 'Manager' && <Menu.Item key="8" onClick={showTeamModal}> Add team member </Menu.Item>}
                     </SubMenu>
 
                 </Menu>

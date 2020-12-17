@@ -84,6 +84,13 @@ const reducer = (state: authState, action: authAction): authState => {
                 isError: false
             }
         }
+        case 'AddTeamMember' : {
+
+            return {
+                ...state,
+                users: [...state.users, {id: state.users.length+1+'', password: "1234", username: action.payload }]
+            };
+        }
         case 'setIsError':
             return {
                 ...state,
