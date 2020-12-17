@@ -1,12 +1,13 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {RouteComponentProps} from "react-router";
 import {useReviewContext} from "../../contexts/reviewContext";
-import {getAuthenticatedUser, singleProjectSelector, userSelector} from "../../utils";
+import {getAuthenticatedUser, projectHasUser, projectSelector, singleProjectSelector, userSelector} from "../../utils";
 import {Divider, Comment, Tooltip, Avatar, Select} from "antd";
 import moment from 'moment';
 import CommentEditor from "../../components/commentEditor";
 import {useProjectContext} from "../../contexts/projectContext";
 import {projectObject} from "../../types";
+import { Redirect } from 'react-router-dom';
 const { Option } = Select;
 type TParams = { id: string };
 const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
@@ -18,6 +19,8 @@ const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
     const user = getAuthenticatedUser();
 
     const project = singleProjectSelector(projectState.projects, parseInt(match.params.id)) as projectObject
+
+    const hasUser = projectHasUser(project , user.id);
 
     const ProjectReviews = state.reviews.filter(review=> review.project.id == parseInt(match.params.id));
 
@@ -80,7 +83,7 @@ const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
 
     return (
         <div>
-
+            {!hasUser && <Redirect to={'/'}/>}
             <div className="form-group col-md-12">
                 <label className={"mr-2"} htmlFor="Team1">Select Member</label>
                 <Select  style={{ width: 200 }} onChange={handleTeamChange}>

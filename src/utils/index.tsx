@@ -45,3 +45,9 @@ export const projectSelector = (project: projectObject[], id: string) => {
     const projects = project.filter(project=> project.team.find(team => team.id == id))
     return projects;
 }
+
+export const projectHasUser = (project: projectObject, id: string) => {
+    const user = project.team.find(team => team.id === id)
+    return user;
+}
+
