@@ -17,6 +17,7 @@ import ProjectReviews from "./reviews/projectReviews";
 import CreateModal from "../components/createModal";
 import {useProjectContext} from "../contexts/projectContext";
 import {useReviewContext} from "../contexts/reviewContext";
+import { ContentWrapper, LayoutWrapper } from '../app.styles';
 const { SubMenu } = Menu;
 const {  Content, Sider } = Layout;
 const Sidebar = () => {
@@ -111,8 +112,7 @@ const Sidebar = () => {
 
 
     return (
-
-        <div>
+        <Layout>
             <CreateModal label={"Member Name"} placeholder={"Team Member name"}   onChange={handleName} onSubmit={handleTeamOK} visible={teamVisible} title={"Add Team Member"} onCancel={handleTeamCancel}/>
             <CreateModal label={"Workspace Name"} placeholder={"Enter Workspace name"} onChange={handleName} onSubmit={handleOk} visible={visible} title={"Create Workspace"} onCancel={handleCancel}/>
             <Sider width={300} className="site-layout-background menu-style">
@@ -154,8 +154,19 @@ const Sidebar = () => {
                 </Menu>
             </Sider>
 
-        </div>
-
+            <LayoutWrapper>
+                <ContentWrapper>
+                    <Switch>
+                        <Route component={Login} path={'/login'}/>
+                        <PrivateRoute component = {CreateProject} path ='/create' />
+                        <PrivateRoute component = {UserProjects} path ='/myProjects' />
+                        <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
+                        <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
+                        <PrivateRoute component = {ProjectsHome} path ='/' />
+                    </Switch>
+                </ContentWrapper>
+            </LayoutWrapper>
+        </Layout>
     );
 }
 
