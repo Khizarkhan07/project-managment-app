@@ -63,4 +63,5 @@ export type authAction = { type: 'setUsername', payload: string }
     | { type: 'setIsError', payload: boolean }
     | { type: 'Logout', payload: string }
     | { type: 'AddTeamMember', payload: string }
+    | { type: 'currentUsers', payload: any }
     | { type: 'Login', payload: { username: string, password: string } };

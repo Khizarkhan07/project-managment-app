@@ -1,11 +1,11 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Modal } from 'antd' ;
 import { UserOutlined, LaptopOutlined } from '@ant-design/icons';
 import '../App.css'
 import {Route, Switch, withRouter} from "react-router";
 import Login from "./auth/Login";
-import {getAuthenticatedUser} from "../utils";
+import {getAuthenticatedUser, retriveData, store} from "../utils";
 import {useAuthContext} from "../contexts/authContext";
 import PrivateRoute from "./auth/PrivateRoute";
 import ProjectsHome from "./projects/ProjectsHome";
@@ -15,14 +15,53 @@ import {useWorkspaceContext} from "../contexts/worskspaceContext";
 import SingleWorkspace from "./workspace/SingleWorkspace";
 import ProjectReviews from "./reviews/projectReviews";
 import CreateModal from "../components/createModal";
+import {useProjectContext} from "../contexts/projectContext";
+import {useReviewContext} from "../contexts/reviewContext";
 const { SubMenu } = Menu;
 const {  Content, Sider } = Layout;
 const Sidebar = () => {
     const {state, dispatch} = useAuthContext();
     const {state: workspaceState, dispatch:workspaceDispatch } = useWorkspaceContext();
+    const {state: projectState, dispatch:projectDispatch } = useProjectContext();
+    const {state: reviewState, dispatch:reviewDispatch } = useReviewContext();
     const [visible, setVisible] = React.useState(false);
     const [teamVisible, setTeamVisible] = React.useState(false);
     const [name, setName] = React.useState('');
+
+
+    useEffect(()=> {
+        if(retriveData("userData")){
+            const data = retriveData("userData");
+            dispatch({type: 'currentUsers', payload: data})
+        }
+        else  {
+            store(state.users, "userData")
+        }
+        if(retriveData("workspaceData")){
+            const data = retriveData("workspaceData");
+            workspaceDispatch({type: 'CURRENT_WORKSPACES', payload: data})
+
+        }
+        else  {
+            store(workspaceState.workspaces, "workspaceData")
+        }
+
+        if(retriveData("projectData")){
+            const data = retriveData("projectData");
+            projectDispatch({type: 'CURRENT_PROJECTS', payload: data})
+        }
+        else  {
+            store(projectState.projects, "projectData")
+        }
+        if(retriveData("reviewData")){
+            const data = retriveData("reviewData");
+            reviewDispatch({type: 'CURRENT_REVIEWS', payload: data})
+        }
+        else  {
+            store(reviewState.reviews, "reviewData")
+        }
+
+    },[])
 
     const showModal = useCallback(() => {
         setVisible(true);

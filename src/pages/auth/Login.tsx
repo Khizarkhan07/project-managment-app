@@ -3,7 +3,7 @@ import { Form, Input ,Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {LoginWrapper} from "./login.styles";
 import {useAuthContext} from "../../contexts/authContext";
-import {getAuthenticatedUser} from "../../utils";
+import {getAuthenticatedUser, retriveData, store} from "../../utils";
 import { Redirect } from 'react-router-dom';
 
 
@@ -22,6 +22,7 @@ const Login = () => {
                 payload: true
             });
         }
+
     }, [state.username, state.password]);
 
 

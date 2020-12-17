@@ -3,6 +3,7 @@ import {projectState, user} from "../types";
 import {getAuthenticatedUser, projectSelector, userSelector} from '../utils/index'
 const CREATE_PROJECT = 'CREATE_PROJECT'
 const USER_PROJECTS = 'USER_PROJECTS'
+const CURRENT_PROJECTS = 'CURRENT_PROJECTS'
 const initialState : projectState = {
     projects: [
         {
@@ -43,6 +44,15 @@ const ProjectContext = createContext<{
 
 const reducer = (state: projectState, action: any)  => {
     switch (action.type) {
+
+        case CURRENT_PROJECTS : {
+
+            return {
+                ...state,
+                projects: action.payload
+            };
+        }
+
         case CREATE_PROJECT: {
             const team1= userSelector(action.payload.users ,action.payload.team1) as user
             const team2= userSelector(action.payload.users ,action.payload.team2) as user

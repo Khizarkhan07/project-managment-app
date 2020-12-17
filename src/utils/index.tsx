@@ -1,7 +1,22 @@
-import {projectObject, projectState, user, workspaceObj} from "../types";
+import {projectObject, user, workspaceObj} from "../types";
 
-export const authenticateUser = (data: any) => {
+export const authenticateUser = (data: user) => {
     window.localStorage.setItem("user", JSON.stringify(data));
+}
+
+export const store = (data: any, key: string) => {
+    window.localStorage.setItem(key, JSON.stringify(data));
+}
+
+export const retriveData = (key: string) => {
+    if (typeof window == "undefined") {
+        return false;
+    }
+    if (localStorage.getItem(key)) {
+        return JSON.parse(localStorage.getItem(key) as string);
+    } else {
+        return false;
+    }
 }
 
 export const getAuthenticatedUser = () => {

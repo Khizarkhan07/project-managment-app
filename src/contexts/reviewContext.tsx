@@ -1,7 +1,9 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import {  reviewState} from "../types";
+import {store} from "../utils";
 
 const ADD_REVIEW = 'ADD_REVIEW'
+const CURRENT_REVIEWS = 'CURRENT_REVIEWS'
 
 const initialState:reviewState = {
     reviews : [
@@ -39,13 +41,19 @@ const ReviewContext = createContext<{
 const reducer = (state: reviewState, action: any): reviewState => {
     switch (action.type) {
 
-
-        case ADD_REVIEW: {
-            console.log(action.payload)
+        case CURRENT_REVIEWS : {
             return {
+                ...state,
+                reviews: action.payload
+            }
+        }
+        case ADD_REVIEW: {
+            const newState ={
                 ...state,
                 reviews: [...state.reviews, action.payload]
             }
+            store(newState.reviews, 'reviewData')
+            return newState;
         }
 
         default :
