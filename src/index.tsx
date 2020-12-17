@@ -16,7 +16,7 @@ ReactDOM.render(
             <WorkspaceProvider>
                 <ProjectProvider>
                     <ReviewProvider>
-                        <Sidebar />
+                        <App />
                     </ReviewProvider>
                 </ProjectProvider>
             </WorkspaceProvider>

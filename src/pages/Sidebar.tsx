@@ -111,7 +111,8 @@ const Sidebar = () => {
 
 
     return (
-        <Layout>
+
+        <div>
             <CreateModal label={"Member Name"} placeholder={"Team Member name"}   onChange={handleName} onSubmit={handleTeamOK} visible={teamVisible} title={"Add Team Member"} onCancel={handleTeamCancel}/>
             <CreateModal label={"Workspace Name"} placeholder={"Enter Workspace name"} onChange={handleName} onSubmit={handleOk} visible={visible} title={"Create Workspace"} onCancel={handleCancel}/>
             <Sider width={300} className="site-layout-background menu-style">
@@ -153,26 +154,8 @@ const Sidebar = () => {
                 </Menu>
             </Sider>
 
-            <Layout style={{ padding: '0 24px 24px', marginTop: '10px' }}>
-                <Content
-                    className="site-layout-background"
-                    style={{
-                        padding: 24,
-                        margin: 0,
-                        minHeight: 280,
-                    }}
-                >
-                    <Switch>
-                        <Route component={Login} path={'/login'}/>
-                        <PrivateRoute component = {CreateProject} path ='/create' />
-                        <PrivateRoute component = {UserProjects} path ='/myProjects' />
-                        <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
-                        <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
-                        <PrivateRoute component = {ProjectsHome} path ='/' />
-                    </Switch>
-                </Content>
-            </Layout>
-        </Layout>
+        </div>
+
     );
 }
 
