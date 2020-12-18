@@ -5,7 +5,7 @@ import {store} from "../utils";
 const CREATE_WORKSPACE = 'CREATE_WORKSPACE'
 const ADD_PROJECT = 'ADD_PROJECT'
 const CURRENT_WORKSPACES = 'CURRENT_WORKSPACES'
-const initialState:workspaceState = {
+export const initialState:workspaceState = {
     workspaces : [{id: 1, name: "Workspace1", projects: [1]}, {id: 2, name: "Workspace2", projects: [2]}]
 };
 

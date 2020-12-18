@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Modal } from 'antd' ;
+import { Layout, Menu } from 'antd' ;
 import { UserOutlined, LaptopOutlined } from '@ant-design/icons';
 import '../App.css'
 import {Route, Switch, withRouter} from "react-router";
@@ -18,8 +18,9 @@ import CreateModal from "../components/createModal";
 import {useProjectContext} from "../contexts/projectContext";
 import {useReviewContext} from "../contexts/reviewContext";
 import { ContentWrapper, LayoutWrapper } from '../app.styles';
+import AllTeam from "./Team/AllTeam";
 const { SubMenu } = Menu;
-const {  Content, Sider } = Layout;
+const {  Sider } = Layout;
 const Sidebar = () => {
     const {state, dispatch} = useAuthContext();
     const {state: workspaceState, dispatch:workspaceDispatch } = useWorkspaceContext();
@@ -149,6 +150,7 @@ const Sidebar = () => {
 
                     <SubMenu key="sub4" icon={<LaptopOutlined />} title="Team">
                         {getAuthenticatedUser().role === 'Manager' && <Menu.Item key="8" onClick={showTeamModal}> Add team member </Menu.Item>}
+                        <Menu.Item key="9"><Link to={'/Team'}>View Team </Link></Menu.Item>
                     </SubMenu>
 
                 </Menu>
@@ -162,6 +164,7 @@ const Sidebar = () => {
                         <PrivateRoute component = {UserProjects} path ='/myProjects' />
                         <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
                         <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
+                        <PrivateRoute component = {AllTeam} path ='/team' />
                         <PrivateRoute component = {ProjectsHome} path ='/' />
                     </Switch>
                 </ContentWrapper>

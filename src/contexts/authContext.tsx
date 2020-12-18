@@ -2,7 +2,7 @@ import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import { authState, authAction} from "../types";
 import {authenticateUser, removeUser, login, store} from "../utils";
 
-const initialState:authState = {
+export const initialState:authState = {
     username: '',
     password: '',
     isButtonDisabled: true,

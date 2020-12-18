@@ -4,7 +4,7 @@ import {getAuthenticatedUser, projectSelector, userSelector} from '../utils/inde
 const CREATE_PROJECT = 'CREATE_PROJECT'
 const USER_PROJECTS = 'USER_PROJECTS'
 const CURRENT_PROJECTS = 'CURRENT_PROJECTS'
-const initialState : projectState = {
+export const initialState : projectState = {
     projects: [
         {
             id: 1,
