@@ -16,6 +16,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1.5",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "antd": "^4.9.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -57,9 +58,15 @@
     "react-test-renderer": "^17.0.1"
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
-    "collectCoverageFrom": [ "**/__tests__/**/*.+(ts|tsx|js)",
-      "**/?(*.)+(spec|test).+(ts|tsx|js)"],
-    "coverageReporters": ["text"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
   }
 }

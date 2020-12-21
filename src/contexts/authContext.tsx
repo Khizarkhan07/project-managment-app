@@ -15,13 +15,15 @@ export const initialState:authState = {
     ]
 };
 
-const AuthContext = createContext<{
+export const AuthContext = createContext<{
     state: authState;
     dispatch: React.Dispatch<any>;
 }>({
     state: initialState,
     dispatch: () => null,
 });
+
+console.log(AuthContext)
 
 const reducer = (state: authState, action: authAction): authState => {
     switch (action.type) {

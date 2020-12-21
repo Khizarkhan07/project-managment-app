@@ -1,8 +1,10 @@
 import React from 'react';
 import {login, projectHasUser, singleProjectSelector, userSelector, workspaceSelector} from "../utils";
-import  {initialState} from '../contexts/authContext'
+import {AuthContext, AuthProvider, initialState} from '../contexts/authContext'
 import  {initialState as workspaceInitialState} from '../contexts/worskspaceContext'
 import  {initialState as projectInitialState} from '../contexts/projectContext'
+import {mount, shallow} from "enzyme";
+import Login from "../pages/auth/Login";
 test('Login with correct password and user name', () => {
 
     const result  = login(initialState.users, {username: 'khizar@gmail.com', password: 'khizar'})
@@ -44,7 +46,3 @@ test('find user in project selector', () => {
     console.log(result)
     expect(result).toEqual({id: '1', username: 'khizar@gmail.com'})
 });
-
-
-
-

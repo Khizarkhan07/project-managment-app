@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Layout } from 'antd';
 import {Route, Switch, withRouter} from "react-router";
 import Login from "./pages/auth/Login";
 import PrivateRoute from "./Routes/PrivateRoute";
@@ -19,7 +17,7 @@ import AllTeam from "./pages/Team/AllTeam";
 import LoginRoute from "./Routes/LoginRoute";
 import EditProject from "./pages/projects/EditProject";
 
-const Sidebar = () => {
+const App: React.FC = () => {
     const {state, dispatch} = useAuthContext();
     const {state: workspaceState, dispatch:workspaceDispatch } = useWorkspaceContext();
     const {state: projectState, dispatch:projectDispatch } = useProjectContext();
@@ -75,4 +73,4 @@ const Sidebar = () => {
     );
 }
 
-export default withRouter(Sidebar);
+export default withRouter(App);
