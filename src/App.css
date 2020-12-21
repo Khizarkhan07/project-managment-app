@@ -60,3 +60,6 @@
   width: 200px;
   position: fixed;
 }
+.horizontal-header{
+  float: right;
+}

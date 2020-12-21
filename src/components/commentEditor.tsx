@@ -12,7 +12,7 @@ type commentProps = {
 }
 
 const CommentEditor: React.FC<commentProps> = ({ onChange, onSubmit, submitting, value }) => (
-    <>
+    <div>
         <Form.Item>
             <TextArea rows={4} onChange={onChange} value={value} />
         </Form.Item>
@@ -21,7 +21,7 @@ const CommentEditor: React.FC<commentProps> = ({ onChange, onSubmit, submitting,
                 Add Comment
             </Button>
         </Form.Item>
-    </>
+    </div>
 );
 
 export default CommentEditor;

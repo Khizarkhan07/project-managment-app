@@ -1,10 +1,8 @@
 import React, {useEffect, useMemo} from 'react';
 import {useProjectContext} from "../../contexts/projectContext";
 import {getAuthenticatedUser} from "../../utils";
-import {ProjectWrapper} from "./project.styles";
-import {Avatar, Button, Descriptions, PageHeader} from "antd";
-import {Link} from "react-router-dom";
 import ProjectHeader from "../../components/projectHeader";
+import {Divider, Empty} from 'antd';
 
 const UserProjects = () => {
     const {state, dispatch} = useProjectContext();
@@ -28,7 +26,8 @@ const UserProjects = () => {
     return (
 
         <div>
-            {renderProjects}
+            <Divider>User Projects</Divider>
+            {renderProjects && renderProjects.length === 0 ? (<Empty />):  renderProjects}
         </div>
     );
 }

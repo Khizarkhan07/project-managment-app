@@ -14,7 +14,6 @@ type Props = {
 
 }
 const CreateModal: React.FC<Props> = ({title, name, value,onCancel, onChange, onSubmit, visible, label,placeholder}) => {
-    console.log(title)
     return (
         <Modal
             title={title}
