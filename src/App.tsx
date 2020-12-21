@@ -4,7 +4,7 @@ import './App.css';
 import { Layout } from 'antd';
 import {Route, Switch, withRouter} from "react-router";
 import Login from "./pages/auth/Login";
-import PrivateRoute from "./pages/auth/PrivateRoute";
+import PrivateRoute from "./Routes/PrivateRoute";
 import CreateProject from "./pages/projects/CreateProject";
 import UserProjects from "./pages/projects/UserProjects";
 import SingleWorkspace from "./pages/workspace/SingleWorkspace";
@@ -15,10 +15,8 @@ import {useWorkspaceContext} from "./contexts/worskspaceContext";
 import {useProjectContext} from "./contexts/projectContext";
 import {useReviewContext} from "./contexts/reviewContext";
 import {retriveData, store} from "./utils";
-import TopNavbar from "./pages/Navbar/TopNavbar";
-import SideBar from "./pages/Navbar/SideBar";
-import {ContentWrapper, LayoutWrapper} from "./app.styles";
 import AllTeam from "./pages/Team/AllTeam";
+import LoginRoute from "./Routes/LoginRoute";
 
 const Sidebar = () => {
     const {state, dispatch} = useAuthContext();
@@ -62,25 +60,15 @@ const Sidebar = () => {
     },[])
 
     return (
-        <Layout>
-            <TopNavbar/>
-            <Layout>
-                <SideBar/>
-                <LayoutWrapper>
-                    <ContentWrapper>
-                        <Switch>
-                            <Route component={Login} path={'/login'}/>
-                            <PrivateRoute component = {CreateProject} path ='/create' />
-                            <PrivateRoute component = {UserProjects} path ='/myProjects' />
-                            <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
-                            <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
-                            <PrivateRoute component = {AllTeam} path ='/team' />
-                            <PrivateRoute component = {ProjectsHome} path ='/' />
-                        </Switch>
-                    </ContentWrapper>
-                </LayoutWrapper>
-            </Layout>
-        </Layout>
+        <Switch>
+            <LoginRoute component={Login} path={'/login'}/>
+            <PrivateRoute component = {CreateProject} path ='/create' />
+            <PrivateRoute component = {UserProjects} path ='/myProjects' />
+            <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
+            <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
+            <PrivateRoute component = {AllTeam} path ='/team' />
+            <PrivateRoute component = {ProjectsHome} path ='/' />
+        </Switch>
 
     );
 }

@@ -5,6 +5,7 @@ import {store} from "../utils";
 const CREATE_WORKSPACE = 'CREATE_WORKSPACE'
 const ADD_PROJECT = 'ADD_PROJECT'
 const CURRENT_WORKSPACES = 'CURRENT_WORKSPACES'
+const DELETE_WORKSPACE = 'DELETE_WORKSPACE'
 export const initialState:workspaceState = {
     workspaces : [{id: 1, name: "Workspace1", projects: [1]}, {id: 2, name: "Workspace2", projects: [2]}]
 };
@@ -37,7 +38,6 @@ const reducer = (state: workspaceState, action: any): workspaceState => {
         }
         case ADD_PROJECT : {
             const index = state.workspaces.findIndex(workspace => workspace.id === action.payload.id)
-            console.log(index)
             const newArray = [...state.workspaces];
             newArray[index].projects.push(action.payload.projectId) //changing value in the new array
 
@@ -47,6 +47,15 @@ const reducer = (state: workspaceState, action: any): workspaceState => {
             }
             store(newState.workspaces, 'workspaceData');
             return newState;
+        }
+        case DELETE_WORKSPACE : {
+            const index = state.workspaces.findIndex(workspace => workspace.id === parseInt(action.payload.id))
+            const newState = {
+                ...state,
+                workspaces: [...state.workspaces.slice(0, index), ...state.workspaces.slice(index + 1)]
+            }
+            store(newState.workspaces, 'workspaceData')
+            return  newState;
         }
         default :
             return state

@@ -4,11 +4,11 @@ export const ContentWrapper = styled.div`
   background: #fff;
   padding: 24px;
   margin: 0px;
-  height: 100%;
+  height: 87vh;
 `;
 
 export const LayoutWrapper = styled.div`
   padding: 0 24px 24px;
-  marginTop: 10px;
+  marginTop: 100px;
   width: 100%;
 `;
