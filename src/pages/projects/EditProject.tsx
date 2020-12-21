@@ -1,28 +1,29 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {Button, Col, Divider, Form, Input, Row, Select } from "antd";
-import {useAuthContext} from "../../contexts/authContext";
-import {getAuthenticatedUser} from "../../utils";
-import { Redirect } from 'react-router-dom';
+import {RouteComponentProps} from "react-router";
+import {getAuthenticatedUser, singleProjectSelector} from "../../utils";
 import {useProjectContext} from "../../contexts/projectContext";
-import {useWorkspaceContext} from "../../contexts/worskspaceContext";
+import {Redirect} from "react-router-dom";
+import {Button, Col, Divider, Input, Row, Select} from "antd";
+import {useAuthContext} from "../../contexts/authContext";
+import {projectObject} from "../../types";
 const { Option } = Select;
 const { TextArea } = Input;
-const CreateProject: React.FC = () => {
+
+type TParams = { id: string };
+
+const EditProject = ({ match }: RouteComponentProps<TParams>) => {
     const {state} = useAuthContext();
     const {state: projectState, dispatch: projectDispatch} = useProjectContext();
-    const {state: workspaceState, dispatch: workspaceDispatch} = useWorkspaceContext();
-    const [stateValue, setStateValue] = useState({name: '', description: '', tech: '', team1_res: '', team2_res: ''})
-    const [team1, setSTeam1] = useState('')
-    const [team2, setSTeam2] = useState('')
-    const [workspace, setWorkspace] = useState('')
-
+    console.log(projectState.projects)
+    const project = singleProjectSelector(projectState.projects, parseInt(match.params.id)) as projectObject
+    const [stateValue, setStateValue] = useState({name: project.name, description: project.description, tech: project.tech[0]})
+    const [team1, setSTeam1] = useState(project.team[0].id)
+    const [team2, setSTeam2] = useState(project.team[1].id)
 
     const handleSubmit = useCallback(()=> {
-        projectDispatch({type: 'CREATE_PROJECT', payload: {name: stateValue.name, description: stateValue.description, tech: stateValue.tech, team1, team2 , users: state.users}})
-        workspaceDispatch({type: 'ADD_PROJECT', payload:{id: workspace, projectId: projectState.projects.length+1}})
-        window.location.href= '/'
+        projectDispatch({type: 'EDIT_PROJECT', payload: {id:parseInt(match.params.id), name: stateValue.name, description: stateValue.description, tech: stateValue.tech, team1, team2 , users: state.users}})
 
-    }, [stateValue, team1, team2, workspace])
+    }, [stateValue, team1, team2])
 
     const handleChange = useCallback( (e:any) => {
         const value = e.target.value;
@@ -40,23 +41,11 @@ const CreateProject: React.FC = () => {
         setSTeam2(value)
     },[team2])
 
-    const handleWorkSpaceChange = useCallback((value: string) => {
-        setWorkspace(value)
-    },[workspace])
 
     const team = useMemo(()=> (
-            state.users?.map((user)=> {
-              return (
-                  <Option value={user.id}>{user.username}</Option>
-              )
-            })
-
-    ), [state.users])
-
-    const workspaces = useMemo(()=> (
-        workspaceState.workspaces?.map((workspace)=> {
+        state.users?.map((user)=> {
             return (
-                <Option value={workspace.id}>{workspace.name}</Option>
+                <Option value={user.id}>{user.username}</Option>
             )
         })
 
@@ -65,7 +54,7 @@ const CreateProject: React.FC = () => {
     return (
         <div>
             {getAuthenticatedUser().role !== 'Manager' && <Redirect to={'/'}/>}
-            <Divider orientation="left">Create</Divider>
+            <Divider orientation="left">Update Project</Divider>
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 <Col className="gutter-row" span={6}>
 
@@ -95,44 +84,15 @@ const CreateProject: React.FC = () => {
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team1">Team 1</label>
-                            <Select  style={{ width: 200 }} onChange={handleTeam1Change}>
+                            <Select value={team1 as string}  style={{ width: 200 }} onChange={handleTeam1Change}>
                                 {team}
                             </Select>
-                        </div>
-
-                        <div className="form-group col-md-12">
-                            <label htmlFor="body">Team 1 Responsibilities</label>
-                            <TextArea
-                                name="team1_res"
-                                onChange={handleChange}
-                                placeholder="Team 1 Responsibilities"
-                                value={stateValue.team1_res}
-                                autoSize={{ minRows: 5 }}
-                            />
                         </div>
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team2">Team 2</label>
-                            <Select  style={{ width: 200 }} onChange={handleTeam2Change}>
+                            <Select  value={team2 as string} style={{ width: 200 }} onChange={handleTeam2Change}>
                                 {team}
-                            </Select>
-                        </div>
-
-                        <div className="form-group col-md-12">
-                            <label htmlFor="body">Team 2 Responsibilities</label>
-                            <TextArea
-                                name="team2_res"
-                                onChange={handleChange}
-                                placeholder="Team 2 Responsibilities"
-                                value={stateValue.team2_res}
-                                autoSize={{ minRows: 5 }}
-                            />
-                        </div>
-
-                        <div className="form-group col-md-12">
-                            <label className={"mr-2"} htmlFor="Workspace">Workspace</label>
-                            <Select  style={{ width: 200 }} onChange={handleWorkSpaceChange}>
-                                {workspaces}
                             </Select>
                         </div>
 
@@ -156,4 +116,4 @@ const CreateProject: React.FC = () => {
     );
 }
 
-export default CreateProject;
+export default EditProject;

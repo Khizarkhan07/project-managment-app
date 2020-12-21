@@ -8,7 +8,7 @@ import {useAuthContext} from "../../contexts/authContext";
 import {useWorkspaceContext} from "../../contexts/worskspaceContext";
 const {Sider} = Layout;
 const {SubMenu} = Menu
-const SideBar = () => {
+const SideBar: React.FC = () => {
     const {state, dispatch} = useAuthContext();
     const {state: workspaceState, dispatch:workspaceDispatch } = useWorkspaceContext();
     const [visible, setVisible] = React.useState(false);

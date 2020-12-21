@@ -3,11 +3,11 @@ import { Form, Input ,Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {LoginWrapper} from "./login.styles";
 import {useAuthContext} from "../../contexts/authContext";
-import {getAuthenticatedUser, retriveData, store} from "../../utils";
+import {getAuthenticatedUser} from "../../utils";
 import { Redirect } from 'react-router-dom';
 
 
-const Login = () => {
+const Login: React.FC = () => {
     const {state, dispatch} = useAuthContext();
 
     useEffect(() => {

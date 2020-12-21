@@ -18,6 +18,9 @@ const  ProjectHeader: React.FC<projectProp> = ({project}) => {
                     <Button key="1" type="primary">
                         <Link to = {`/project/reviews/${project.id}`}>Reviews</Link>
                     </Button>,
+                    <Button key="2" type="dashed">
+                        <Link to = {`/project/edit/${project.id}`}>Update</Link>
+                    </Button>,
                 ]}
 
             >

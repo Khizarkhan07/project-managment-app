@@ -5,7 +5,7 @@ import {ProjectWrapper} from "./project.styles";
 import { Link } from 'react-router-dom';
 import ProjectHeader from "../../components/projectHeader";
 
-const ProjectsHome = () =>{
+const ProjectsHome: React.FC = () =>{
     const{state, dispatch} = useProjectContext();
 
     const renderProjects = useMemo(()=> {

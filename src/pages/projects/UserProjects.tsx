@@ -4,7 +4,7 @@ import {getAuthenticatedUser} from "../../utils";
 import ProjectHeader from "../../components/projectHeader";
 import {Divider, Empty} from 'antd';
 
-const UserProjects = () => {
+const UserProjects: React.FC = () => {
     const {state, dispatch} = useProjectContext();
     const user = getAuthenticatedUser();
     useEffect(()=> {

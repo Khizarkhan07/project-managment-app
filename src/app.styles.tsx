@@ -4,7 +4,7 @@ export const ContentWrapper = styled.div`
   background: #fff;
   padding: 24px;
   margin: 0px;
-  height: 87vh;
+  height: 150vh;
 `;
 
 export const LayoutWrapper = styled.div`

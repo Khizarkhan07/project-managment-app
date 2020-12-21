@@ -17,6 +17,7 @@ import {useReviewContext} from "./contexts/reviewContext";
 import {retriveData, store} from "./utils";
 import AllTeam from "./pages/Team/AllTeam";
 import LoginRoute from "./Routes/LoginRoute";
+import EditProject from "./pages/projects/EditProject";
 
 const Sidebar = () => {
     const {state, dispatch} = useAuthContext();
@@ -66,6 +67,7 @@ const Sidebar = () => {
             <PrivateRoute component = {UserProjects} path ='/myProjects' />
             <PrivateRoute component = {SingleWorkspace} path ='/workspace/:id' />
             <PrivateRoute component = {ProjectReviews} path ='/project/reviews/:id' />
+            <PrivateRoute component = {EditProject} path ='/project/edit/:id' />
             <PrivateRoute component = {AllTeam} path ='/team' />
             <PrivateRoute component = {ProjectsHome} path ='/' />
         </Switch>

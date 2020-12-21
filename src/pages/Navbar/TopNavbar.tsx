@@ -4,7 +4,7 @@ import {getAuthenticatedUser} from "../../utils";
 import {Link} from "react-router-dom";
 import {useAuthContext} from "../../contexts/authContext";
 const {Header} = Layout
-const TopNavbar = () => {
+const TopNavbar: React.FC = () => {
     const {state, dispatch} = useAuthContext();
 
     const handleLogout = useCallback(()=> {
