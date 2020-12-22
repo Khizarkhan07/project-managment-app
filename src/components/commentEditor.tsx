@@ -1,6 +1,5 @@
 import React from 'react';
 import { Comment, Avatar, Form, Button, List, Input } from 'antd';
-import moment from 'moment';
 
 const { TextArea } = Input;
 type commentProps = {
@@ -24,4 +23,4 @@ const CommentEditor: React.FC<commentProps> = ({ onChange, onSubmit, submitting,
     </div>
 );
 
-export default CommentEditor;
+export default React.memo(CommentEditor);

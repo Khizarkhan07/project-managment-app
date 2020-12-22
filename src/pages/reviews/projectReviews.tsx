@@ -86,7 +86,7 @@ const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
             {!hasUser && <Redirect to={'/'}/>}
             <div className="form-group col-md-12">
                 <label className={"mr-2"} htmlFor="Team1">Select Member</label>
-                <Select  style={{ width: 200 }} onChange={handleTeamChange}>
+                <Select  className={"select-dropdown"} onChange={handleTeamChange}>
                     {team}
                 </Select>
             </div>

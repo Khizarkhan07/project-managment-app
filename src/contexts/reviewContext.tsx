@@ -5,7 +5,7 @@ import {store} from "../utils";
 const ADD_REVIEW = 'ADD_REVIEW'
 const CURRENT_REVIEWS = 'CURRENT_REVIEWS'
 
-const initialState:reviewState = {
+export const initialState:reviewState = {
     reviews : [
         {
             id: 1 ,

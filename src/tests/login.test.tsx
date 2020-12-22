@@ -21,7 +21,16 @@ it(">>>> should not show error text", async () => {
     expect(wrapper.childAt(0).childAt(0)).not.toBe(<div></div>)
 });
 
-it(">>>> should show greeting name", async () => {
+
+it(">>>> should have disabled button", async () => {
+
+    const wrapper = shallow(<Login/>);
+    const src = wrapper.find('Button').prop('disabled');
+    expect(src).toBe(true);
+});
+
+
+it(">>>> should show helper text div", async () => {
 
     const data = {
         username: '',

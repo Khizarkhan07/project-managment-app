@@ -1,8 +1,6 @@
 import React, {useMemo} from 'react';
 import {useProjectContext} from "../../contexts/projectContext";
-import {Divider, PageHeader, Button, Descriptions, Avatar, Image, Empty} from 'antd';
-import {ProjectWrapper} from "./project.styles";
-import { Link } from 'react-router-dom';
+import {Divider, Empty} from 'antd';
 import ProjectHeader from "../../components/projectHeader";
 
 const ProjectsHome: React.FC = () =>{

@@ -2,7 +2,7 @@ import React from 'react';
 import {useAuthContext} from "../../contexts/authContext";
 import {List, Avatar, Divider} from 'antd';
 
-const AllTeam = () => {
+const AllTeam: React.FC = () => {
     const {state} = useAuthContext();
     return (
         <div>

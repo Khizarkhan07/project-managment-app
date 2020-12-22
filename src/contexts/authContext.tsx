@@ -23,7 +23,6 @@ export const AuthContext = createContext<{
     dispatch: () => null,
 });
 
-console.log(AuthContext)
 
 const reducer = (state: authState, action: authAction): authState => {
     switch (action.type) {

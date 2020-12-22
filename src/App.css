@@ -63,3 +63,7 @@
 .horizontal-header{
   float: right;
 }
+
+.select-dropdown {
+  width: 200px;
+}

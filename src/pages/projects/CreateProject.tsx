@@ -95,7 +95,8 @@ const CreateProject: React.FC = () => {
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team1">Team 1</label>
-                            <Select  style={{ width: 200 }} onChange={handleTeam1Change}>
+
+                            <Select  className={"select-dropdown"} onChange={handleTeam1Change}>
                                 {team}
                             </Select>
                         </div>
@@ -113,7 +114,7 @@ const CreateProject: React.FC = () => {
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team2">Team 2</label>
-                            <Select  style={{ width: 200 }} onChange={handleTeam2Change}>
+                            <Select className={"select-dropdown"} onChange={handleTeam2Change}>
                                 {team}
                             </Select>
                         </div>
@@ -131,7 +132,7 @@ const CreateProject: React.FC = () => {
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Workspace">Workspace</label>
-                            <Select  style={{ width: 200 }} onChange={handleWorkSpaceChange}>
+                            <Select  className={"select-dropdown"} onChange={handleWorkSpaceChange}>
                                 {workspaces}
                             </Select>
                         </div>

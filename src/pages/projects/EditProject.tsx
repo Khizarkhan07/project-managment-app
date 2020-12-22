@@ -84,14 +84,14 @@ const EditProject = ({ match }: RouteComponentProps<TParams>) => {
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team1">Team 1</label>
-                            <Select value={team1 as string}  style={{ width: 200 }} onChange={handleTeam1Change}>
+                            <Select className={"select-dropdown"} value={team1 as string} onChange={handleTeam1Change}>
                                 {team}
                             </Select>
                         </div>
 
                         <div className="form-group col-md-12">
                             <label className={"mr-2"} htmlFor="Team2">Team 2</label>
-                            <Select  value={team2 as string} style={{ width: 200 }} onChange={handleTeam2Change}>
+                            <Select className={"select-dropdown"}  value={team2 as string} onChange={handleTeam2Change}>
                                 {team}
                             </Select>
                         </div>
