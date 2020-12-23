@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
-import {  reviewState} from "../types";
+import {reviewAction, reviewState} from "../types";
 import {store} from "../utils";
 
 const ADD_REVIEW = 'ADD_REVIEW'
@@ -38,7 +38,7 @@ const ReviewContext = createContext<{
     dispatch: () => null,
 });
 
-const reducer = (state: reviewState, action: any): reviewState => {
+const reducer = (state: reviewState, action: reviewAction): reviewState => {
     switch (action.type) {
 
         case CURRENT_REVIEWS : {

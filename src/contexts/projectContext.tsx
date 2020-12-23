@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
-import {projectState, user} from "../types";
+import {projectAction, projectState, user} from "../types";
 import {getAuthenticatedUser, projectSelector, store, userSelector} from '../utils/index'
 const CREATE_PROJECT = 'CREATE_PROJECT'
 const USER_PROJECTS = 'USER_PROJECTS'
@@ -43,7 +43,7 @@ const ProjectContext = createContext<{
     dispatch: () => null,
 });
 
-const reducer = (state: projectState, action: any)  => {
+const reducer = (state: projectState, action: projectAction) : projectState  => {
     switch (action.type) {
 
         case CURRENT_PROJECTS : {

@@ -2,11 +2,11 @@ import React, {useCallback, useMemo, useState} from 'react';
 import {RouteComponentProps} from "react-router";
 import {useReviewContext} from "../../contexts/reviewContext";
 import {getAuthenticatedUser, projectHasUser, projectSelector, singleProjectSelector, userSelector} from "../../utils";
-import {Divider, Comment, Tooltip, Avatar, Select} from "antd";
+import {Divider, Comment, Tooltip, Avatar, Select, Empty} from "antd";
 import moment from 'moment';
 import CommentEditor from "../../components/commentEditor";
 import {useProjectContext} from "../../contexts/projectContext";
-import {projectObject} from "../../types";
+import {projectObject, reviewObj, user} from "../../types";
 import { Redirect } from 'react-router-dom';
 const { Option } = Select;
 type TParams = { id: string };
@@ -18,15 +18,15 @@ const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
     const [submitting, setSubmitting] = useState(false)
     const user = getAuthenticatedUser();
 
-    const project = singleProjectSelector(projectState.projects, parseInt(match.params.id)) as projectObject
+    const project: projectObject = singleProjectSelector(projectState.projects, parseInt(match.params.id)) as projectObject
 
-    const hasUser = projectHasUser(project , user.id);
+    const hasUser: user = projectHasUser(project , user.id);
 
-    const ProjectReviews = state.reviews.filter(review=> review.project.id == parseInt(match.params.id));
+    const ProjectReviews: reviewObj[] = state.reviews.filter(review=> review.project.id == parseInt(match.params.id));
 
-    const userReviews = ProjectReviews.filter(project => project.reviewTo.id == member || project.reviewBy.id == member  )
+    const userReviews : reviewObj[] = ProjectReviews.filter(project => project.reviewTo.id == member || project.reviewBy.id == member  )
 
-    const reviewTo = userSelector(project.team, member);
+    const reviewTo : user = userSelector(project.team, member);
 
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,7 +58,7 @@ const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
     }, [project])
 
     const renderReviews = useMemo(()=> {
-        return userReviews.map((review)=> {
+        return userReviews.map((review: reviewObj)=> {
             return (
                 <Comment
                     author={<a>{review.reviewBy.username}</a>}
@@ -94,7 +94,7 @@ const ProjectReviews = ({ match }: RouteComponentProps<TParams>) => {
             {member !== '' ? (<div>
                 <Divider orientation="left">{ProjectReviews[0]?.project.name}</Divider>
 
-                {renderReviews}
+                {renderReviews && renderReviews.length === 0 ? (<Empty />):  renderReviews}
                 <hr/>
                 <Comment
                     avatar={

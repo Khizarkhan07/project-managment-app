@@ -43,7 +43,7 @@ export const login = (users: user[], data: {username: string, password: string})
 }
 
 export const userSelector = (users: user[], id: string) => {
-    const user = users.find(user => user.id === id);
+    const user = users.find(user => user.id === id) as user;
     return user;
 }
 export const workspaceSelector = (workspaces: workspaceObj[], id: number) => {
@@ -63,6 +63,6 @@ export const projectSelector = (project: projectObject[], id: string) => {
 
 export const projectHasUser = (project: projectObject, id: string) => {
     const user = project.team.find(team => team.id === id)
-    return user;
+    return user as user;
 }
 

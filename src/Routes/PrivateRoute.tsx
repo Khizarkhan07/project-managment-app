@@ -6,7 +6,12 @@ import TopNavbar from "../pages/Navbar/TopNavbar";
 import SideBar from "../pages/Navbar/SideBar";
 import {ContentWrapper, LayoutWrapper} from "../app.styles";
 
-const PrivateRoute = ({component, ...rest}: any) => {
+export type route  = {
+    component: any;
+    path: string;
+}
+
+const PrivateRoute = ({component, ...rest}: route) => {
     const routeComponent = (props: any) => (
         getAuthenticatedUser()
             ? React.createElement(component, props)

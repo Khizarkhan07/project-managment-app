@@ -24,7 +24,7 @@ const CreateModal: React.FC<Props> = ({title, name, value,onCancel, onChange, on
 
             <div className="form-group col-md-12">
                 <label htmlFor="first_name"> {label} </label>
-                <input type="text" id="name" onChange={onChange} name="name" className="form-control" placeholder={placeholder} />
+                <input type="text" id="name" onChange={onChange} name="name" className="form-control" placeholder={placeholder} value={value} />
             </div>
 
         </Modal>

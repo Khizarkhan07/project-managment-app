@@ -1,11 +1,12 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
-import { workspaceState} from "../types";
+import {workspaceAction, workspaceState} from "../types";
 import {store} from "../utils";
 
 const CREATE_WORKSPACE = 'CREATE_WORKSPACE'
 const ADD_PROJECT = 'ADD_PROJECT'
 const CURRENT_WORKSPACES = 'CURRENT_WORKSPACES'
 const DELETE_WORKSPACE = 'DELETE_WORKSPACE'
+const EDIT_WORKSPACE = 'EDIT_WORKSPACE'
 export const initialState:workspaceState = {
     workspaces : [{id: 1, name: "Workspace1", projects: [1]}, {id: 2, name: "Workspace2", projects: [2]}]
 };
@@ -18,7 +19,7 @@ const WorkspaceContext = createContext<{
     dispatch: () => null,
 });
 
-const reducer = (state: workspaceState, action: any): workspaceState => {
+const reducer = (state: workspaceState, action: workspaceAction): workspaceState => {
     switch (action.type) {
 
         case CURRENT_WORKSPACES : {
@@ -48,6 +49,21 @@ const reducer = (state: workspaceState, action: any): workspaceState => {
             store(newState.workspaces, 'workspaceData');
             return newState;
         }
+
+        case EDIT_WORKSPACE : {
+            const index = state.workspaces.findIndex(workspace => workspace.id === parseInt(action.payload.id))
+            const newArray = [...state.workspaces];
+            newArray[index].name = action.payload.name;
+
+            const newState = {
+                ...state,
+                workspaces: newArray
+            }
+
+            store(newState.workspaces, 'workspaceData');
+            return newState;
+        }
+
         case DELETE_WORKSPACE : {
             const index = state.workspaces.findIndex(workspace => workspace.id === parseInt(action.payload.id))
             const newState = {
