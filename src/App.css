@@ -60,3 +60,10 @@
   width: 200px;
   position: fixed;
 }
+.horizontal-header{
+  float: right;
+}
+
+.select-dropdown {
+  width: 200px;
+}

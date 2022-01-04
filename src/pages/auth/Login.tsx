@@ -7,7 +7,7 @@ import {getAuthenticatedUser} from "../../utils";
 import { Redirect } from 'react-router-dom';
 
 
-const Login = () => {
+const Login: React.FC = () => {
     const {state, dispatch} = useAuthContext();
 
     useEffect(() => {
@@ -22,6 +22,7 @@ const Login = () => {
                 payload: true
             });
         }
+
     }, [state.username, state.password]);
 
 

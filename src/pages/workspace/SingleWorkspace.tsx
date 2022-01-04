@@ -1,70 +1,81 @@
-import {Avatar, Button, Descriptions, Divider, PageHeader} from 'antd';
-import React, { useMemo} from 'react';
+import {Button, Divider, Empty} from 'antd';
+import React, {useCallback, useMemo} from 'react';
 import {RouteComponentProps} from "react-router";
 import {useWorkspaceContext} from "../../contexts/worskspaceContext";
-import {workspaceSelector} from "../../utils";
+import {getAuthenticatedUser, workspaceSelector} from "../../utils";
 import {useProjectContext} from "../../contexts/projectContext";
 import { workspaceObj} from "../../types";
-import {ProjectWrapper} from "../projects/project.styles";
+import ProjectHeader from "../../components/projectHeader";
+import CreateModal from "../../components/createModal";
 
 type TParams = { id: string };
 
 const SingleWorkspace = ({ match }: RouteComponentProps<TParams>) => {
-    const {state} = useWorkspaceContext();
+    const {state, dispatch} = useWorkspaceContext();
     const {state: projectState} = useProjectContext();
+    const [visible, setVisible] = React.useState(false);
+
     const workspace = workspaceSelector(state.workspaces, parseInt(match.params.id)) as workspaceObj
+    const [name, setName] = React.useState(workspace.name);
 
     const render = useMemo(()=> {
         return workspace.projects.map((projectId) => {
             const project = projectState.projects.find((project => project.id == projectId))
             if(project) {
                 return(
-                    <ProjectWrapper>
-                        <PageHeader
-                            key={project.id}
-                            ghost={false}
-                            title={project.name}
-                            extra={[
-                                <Button key="1" type="primary">
-                                    Reviews
-                                </Button>,
-                            ]}
-                        >
-                            <Descriptions size="small" column={3}>
-                                <Descriptions.Item label="Created By">{project.createdBy}</Descriptions.Item>
-                                <Descriptions.Item label="id">
-                                    <a>{project.id}</a>
-                                </Descriptions.Item>
-                                <Descriptions.Item label="Creation Time">{new Date(project.createdAt).toLocaleDateString()}</Descriptions.Item>
-                                <Descriptions.Item label="Effective Time">{new Date(project.createdAt).toLocaleDateString()}</Descriptions.Item>
-                                <Descriptions.Item label="Tech stack">{
-                                    project.tech.map((tech: any)=> {
-                                        return tech + " "
-                                    })
-                                }</Descriptions.Item>
-
-                                <Descriptions.Item label="Team">
-                                    {project.team.map((member: any)=> {
-                                        return (
-                                            <Avatar>{member.username.substr(0,1).toUpperCase()}</Avatar>
-                                        )
-                                    })}
-                                </Descriptions.Item>
-
-                                <Descriptions.Item label="Description">{project.description}</Descriptions.Item>
-                            </Descriptions>
-                        </PageHeader>
-                    </ProjectWrapper>
-
+                    <ProjectHeader project={project}/>
                 )
             }
         })
     },[workspace])
 
+    const handleDelete = useCallback(()=> {
+        dispatch ( {type: 'DELETE_WORKSPACE', payload: {id: match.params.id}});
+        window.location.href= '/'
+    },[state.workspaces])
+
+
+    const deleteButton = useMemo(() => {
+        return <Button onClick={handleDelete} className={"mt-2 mb-2 mr-2"} type="primary" danger>
+            Delete Workspace
+        </Button>
+    }, [true])
+
+
+
+
+    const showModal = useCallback(() => {
+        setVisible(true);
+    }, [visible]);
+
+    const handleCancel = useCallback( () => {
+        setVisible(false);
+    }, [visible]);
+
+
+    const handleOK = useCallback(()=> {
+        dispatch({type: 'EDIT_WORKSPACE', payload: {name, id: match.params.id}})
+        setVisible(false)
+    }, [name])
+
+    const handleName = useCallback((e: React.ChangeEvent<HTMLInputElement>)=> {
+        setName(e.target.value)
+    }, [name])
+
+    const updateButton = useMemo(() => {
+        return <Button onClick={showModal} className={"mt-2 mb-2"} type="primary">
+            Update Workspace
+        </Button>
+    }, [true])
+
     return (
         <div>
             <Divider orientation="left">{workspace.name}</Divider>
-            {render}
+            {getAuthenticatedUser().role === 'Manager' && deleteButton}
+            {getAuthenticatedUser().role === 'Manager' && updateButton}
+            {render && render.length === 0 ? (<Empty />):  render}
+            <CreateModal value={name} label={"Workspace Name"}  onChange={handleName} onSubmit={handleOK} visible={visible} title={"Edit workspace"} onCancel={handleCancel}/>
+
         </div>
     );
 }

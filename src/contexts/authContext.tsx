@@ -1,8 +1,8 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import { authState, authAction} from "../types";
-import {authenticateUser, removeUser, login} from "../utils";
+import {authenticateUser, removeUser, login, store} from "../utils";
 
-const initialState:authState = {
+export const initialState:authState = {
     username: '',
     password: '',
     isButtonDisabled: true,
@@ -15,7 +15,7 @@ const initialState:authState = {
     ]
 };
 
-const AuthContext = createContext<{
+export const AuthContext = createContext<{
     state: authState;
     dispatch: React.Dispatch<any>;
 }>({
@@ -23,8 +23,17 @@ const AuthContext = createContext<{
     dispatch: () => null,
 });
 
+
 const reducer = (state: authState, action: authAction): authState => {
     switch (action.type) {
+        case 'currentUsers' : {
+            const newState = {
+                ...state,
+                users: action.payload
+            }
+            return newState;
+        }
+
         case 'setUsername':
             return {
                 ...state,
@@ -83,6 +92,14 @@ const reducer = (state: authState, action: authAction): authState => {
                 helperText: action.payload,
                 isError: false
             }
+        }
+        case 'AddTeamMember' : {
+            const newState = {
+                ...state,
+                users: [...state.users, {id: state.users.length+1+'', password: "1234", username: action.payload }]
+            }
+            store(newState.users, 'userData')
+            return newState;
         }
         case 'setIsError':
             return {
