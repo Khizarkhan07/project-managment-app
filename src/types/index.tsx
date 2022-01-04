@@ -13,7 +13,8 @@ export type user ={
 }
 
 export type projectState = {
-    projects: projectObject[]
+    projects: projectObject[],
+    userProjects?: projectObject[]
 }
 
 export type projectObject = {
@@ -25,6 +26,16 @@ export type projectObject = {
     createdBy: string,
     id: number,
     responsibility?: responsibilityObj[]
+}
+
+export type workspaceState = {
+    workspaces : workspaceObj[]
+}
+
+export type workspaceObj = {
+    id: number,
+    name: string,
+    projects: number[]
 }
 
 export  type responsibilityObj = {
