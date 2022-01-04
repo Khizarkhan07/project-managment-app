@@ -52,7 +52,6 @@ const Login = () => {
             {getAuthenticatedUser().username && <Redirect to="/" /> }
             {state.helperText && <div>{state.helperText}</div>}
             <Form
-                name="normal_login"
                 className="login-form"
                 initialValues={{
                     remember: true,

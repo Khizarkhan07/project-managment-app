@@ -9,9 +9,9 @@ const initialState:authState = {
     helperText: '',
     isError: false,
     users : [
-        {id: '1', username: 'khizar@gmail.com', password: 'khizar'},
-        {id: '2', username: 'arslan@gmail.com', password: 'arslan'},
-        {id: '3', username: 'jabir@gmail.com', password: 'jabir'}
+        {id: '1', username: 'khizar@gmail.com', password: 'khizar', role: 'FE'},
+        {id: '2', username: 'arslan@gmail.com', password: 'arslan', role: 'FE'},
+        {id: '3', username: 'jabir@gmail.com', password: 'jabir', role: 'Manager'}
     ]
 };
 

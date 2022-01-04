@@ -1,12 +1,35 @@
 import React, {createContext, ReactNode, useContext, useReducer} from "react";
-import {projectState} from "../types";
-
+import {projectState, user} from "../types";
+import {getAuthenticatedUser, userSelector} from '../utils/index'
+const CREATE_PROJECT = 'CREATE_PROJECT'
 const initialState : projectState = {
-    projects: [{name: 'Project 1',
-        description: 'this is a mern stack project',
-        tech: ['react', 'node'],
-        team :['1' , '2']
-    }],
+    projects: [
+        {
+            id: 1,
+            name: 'Project Management App',
+            description: 'this is a mern stack project',
+            tech: ['react', 'node'],
+            team :[{id: '1', username: 'khizar@gmail.com'},
+                {id: '2', username: 'arslan@gmail.com',},],
+            createdAt: new Date( Date.now()),
+            createdBy: 'jabir',
+            responsibility: [{id: '1', data: "Front End in react js"},
+                {id: '2', data: "Team lead and Front end development"},]
+        },
+        {
+            id: 2,
+            name: 'Project Management App',
+            description: 'this is a mern stack project',
+            tech: ['react', 'node'],
+            team :[{id: '1', username: 'khizar@gmail.com', password: 'khizar'},
+                {id: '2', username: 'arslan@gmail.com', password: 'arslan'},],
+            createdAt: new Date( Date.now()),
+            createdBy: 'jabir',
+            responsibility: [{id: '1', data: "Front End in react js"},
+                {id: '2', data: "Team lead and Front end development"},]
+        },
+
+    ],
 };
 
 const ProjectContext = createContext<{
@@ -17,9 +40,30 @@ const ProjectContext = createContext<{
     dispatch: () => null,
 });
 
-const reducer = (state: projectState, action: any) : projectState => {
+const reducer = (state: projectState, action: any): projectState  => {
     switch (action.type) {
-
+        case CREATE_PROJECT: {
+            const team1= userSelector(action.payload.users ,action.payload.team1) as user
+            const team2= userSelector(action.payload.users ,action.payload.team2) as user
+            const tech = action.payload.tech.split(",")
+            const id = state.projects.length+1;
+            const team1_res = {id: team1.id, data: action.payload.team1_res}
+            const team2_res = {id: team2.id, data: action.payload.team2_res}
+            return {
+                ...state,
+                projects: [...state.projects,
+                    {
+                        id: id,
+                        name: action.payload.name,
+                        tech: tech,
+                        description: action.payload.description,
+                        team: [team1, team2],
+                        createdAt: new Date(Date.now()),
+                        createdBy: getAuthenticatedUser().username,
+                        responsibility: [team1_res, team2_res]
+                    }]
+            }
+        }
         default: return state
     }
 
@@ -40,6 +84,5 @@ const ProjectProvider: React.FC<Props> = ({ children }) => {
     );
 };
 
-export const useAuthContext = () => useContext(ProjectContext);
+export const useProjectContext = () => useContext(ProjectContext);
 export { ProjectProvider };
-

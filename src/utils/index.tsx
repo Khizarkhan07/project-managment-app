@@ -26,3 +26,8 @@ export const login = (users: user[], data: {username: string, password: string})
         return user;
     }
 }
+
+export const userSelector = (users: user[], id: string) => {
+    const user = users.find(user => user.id === id);
+    return user;
+}
